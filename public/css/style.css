@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+
+html {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 2.5rem;
+}
+
+body {
+  background-color: #000;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column; /* Ensure content is stacked vertically */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+form {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Add space between form and table */
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #213d5b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  width: 400px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+table {
+  max-width: 400px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+table th {
+  background-color: #213d5b;
+  color: white;
+}
+
+table td {
+  background-color: #000000;
+}

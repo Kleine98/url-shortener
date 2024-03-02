@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Short URL API</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <form id="shortenUrlForm">
+      <h1>Short URL</h1>
+      <label for="longUrl">Paste the URL to be shortened</label><br />
+      <input
+        type="text"
+        id="longUrl"
+        name="longUrl"
+        required
+        placeholder="Enter URL here"
+      /><br /><br />
+      <button type="submit">Shorten URL</button>
+    </form>
+
+    <table id="shortUrlsTable">
+      <thead>
+        <tr>
+          <th>Long URL</th>
+          <th>Short URL</th>
+          <th>QR Code</th>
+        </tr>
+      </thead>
+      <tbody id="shortUrlsBody"></tbody>
+    </table>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Retrieve short URL data from cookies
+        const cookies = document.cookie
+          .split(";")
+          .map((cookie) => cookie.trim());
+        const shortUrlDataList = cookies.reduce((acc, cookie) => {
+          const [key, value] = cookie.split("=");
+          if (key.startsWith("shortUrl")) {
+            const shortUrlData = JSON.parse(atob(value));
+            acc.push(shortUrlData);
+          }
+          return acc;
+        }, []);
+
+        // Display short URL data in the table
+        const shortUrlsTableBody = document.getElementById("shortUrlsBody");
+        shortUrlDataList.forEach(({ longUrl, shortUrl, qrCode }) => {
+          const newRow = document.createElement("tr");
+          newRow.innerHTML = `
+          <td>${longUrl}</td>
+          <td><a href="${shortUrl}">${shortUrl}</a></td>
+          <td><img src="${qrCode}" alt="QR Code" /></td>
+        `;
+          shortUrlsTableBody.appendChild(newRow);
+        });
+      });
+
+      document
+        .getElementById("shortenUrlForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const longUrl = document.getElementById("longUrl").value;
+
+          const response = await fetch("/url", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ longUrl }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+
+            // Store short URL data in cookie
+            const shortUrlData = {
+              longUrl: data.longUrl,
+              shortUrl: data.shortUrl,
+              qrCode: data.qrCode,
+            };
+            document.cookie = `shortUrl=${btoa(JSON.stringify(shortUrlData))};`;
+
+            // Add short URL data to the table
+            const shortUrlsTableBody = document.getElementById("shortUrlsBody");
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+          <td>${data.longUrl}</td>
+          <td><a href="${data.shortUrl}">${data.shortUrl}</a></td>
+          <td><img src="${data.qrCode}" alt="QR Code" /></td>
+        `;
+            shortUrlsTableBody.appendChild(newRow);
+          } else {
+            console.error("Failed to shorten URL");
+          }
+        });
+    </script>
+  </body>
+</html>
