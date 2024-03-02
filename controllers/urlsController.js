@@ -15,7 +15,7 @@ const shortenUrl = async (req, res) => {
     // Generate a unique short ID using the shortid library
     const shortUrl = shortid.generate();
 
-    const shortUrlQR = `http://localhost:3500/url/${shortUrl}`;
+    const shortUrlQR = `https://url-shortener-dgw5.onrender.com/url/${shortUrl}`;
 
     // Generate QR code for the short URL
     const qrCode = await generateQrCode(shortUrlQR);

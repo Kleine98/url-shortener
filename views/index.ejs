@@ -52,10 +52,10 @@
         shortUrlDataList.forEach(({ longUrl, shortUrl, qrCode }) => {
           const newRow = document.createElement("tr");
           newRow.innerHTML = `
-          <td>${longUrl}</td>
-          <td><a href="${shortUrl}">${shortUrl}</a></td>
-          <td><img src="${qrCode}" alt="QR Code" /></td>
-        `;
+                    <td>${longUrl}</td>
+                    <td><a href="${shortUrl}">${shortUrl}</a></td>
+                    <td><img src="${qrCode}" alt="QR Code" /></td>
+                `;
           shortUrlsTableBody.appendChild(newRow);
         });
       });
@@ -81,7 +81,7 @@
             // Store short URL data in cookie
             const shortUrlData = {
               longUrl: data.longUrl,
-              shortUrl: data.shortUrl,
+              shortUrl: `https://url-shortener-dgw5.onrender.com/url/${data.shortUrl}`,
               qrCode: data.qrCode,
             };
             document.cookie = `shortUrl=${btoa(JSON.stringify(shortUrlData))};`;
@@ -90,10 +90,10 @@
             const shortUrlsTableBody = document.getElementById("shortUrlsBody");
             const newRow = document.createElement("tr");
             newRow.innerHTML = `
-          <td>${data.longUrl}</td>
-          <td><a href="${data.shortUrl}">${data.shortUrl}</a></td>
-          <td><img src="${data.qrCode}" alt="QR Code" /></td>
-        `;
+                        <td>${data.longUrl}</td>
+                        <td><a href="${shortUrlData.shortUrl}">${shortUrlData.shortUrl}</a></td>
+                        <td><img src="${data.qrCode}" alt="QR Code" /></td>
+                    `;
             shortUrlsTableBody.appendChild(newRow);
           } else {
             console.error("Failed to shorten URL");
