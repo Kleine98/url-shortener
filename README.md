@@ -2,6 +2,9 @@
 
 Short URL API is a simple web application that allows users to shorten long URLs and generate corresponding QR codes. It provides an interface for users to input a long URL, which then generates a unique short URL along with a QR code for easy sharing.
 
+## Production Demo
+Check out [the production demo of the Short URL API here](https://url-shortener-dgw5.onrender.com/)
+
 ## Features
 
 - Shorten long URLs to generate a unique short URL.
