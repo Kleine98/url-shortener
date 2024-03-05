@@ -1,7 +1,7 @@
 {
-  "name": "lesson_02",
+  "name": "URL-Shortener",
   "version": "1.0.0",
-  "description": "techNotes MERN Project",
+  "description": "URL Shortener Web-API",
   "main": "server.js",
   "scripts": {
     "start": "node server",
